@@ -1,5 +1,11 @@
 # Last Call development tracker
 
+## Current scope and morning resume
+- The October 25 updated user brief is preserved in `BUILD_BRIEF.md` and supersedes the earlier milestone sketch below.
+- `MORNING_HANDOFF.md` maps the actual implementation to P0, records gaps, and proposes the smallest staged three-door finale.
+- Evening verification: all ten tests, source syntax checks, and whitespace checks pass. Local app was unreachable; left stopped without changing .env or tokens.
+- Resume with trivia stabilization (non-destructive stop, full live run, OBS readability), then P0 mystery doors and approved surprise playback. AI generation is P1; remote moderation and full discovery remain deferred. No feature code changed for this brief update.
+
 ## Day 1 baseline
 - Starter copied from Desktop/Last Call/last-call into this workspace.
 - Original architecture: native Node HTTP server, Twitch OAuth, EventSub WebSocket, pure command logic. No dependencies.
@@ -15,7 +21,7 @@
 - Live ping verified: user confirmed Twitch displayed the broadcaster's reply, "Last Call is listening! Welcome to the bar, jaydubs1980!" after the other account's command.
 - Day 1 live connection milestone complete for the existing running server. Existing server was preserved to retain its in-memory OAuth session; restart and reauthorize to load and live-verify workspace fixes.
 
-## Smallest demo plan (after live connection passes)
+## Earlier demo sketch (superseded by BUILD_BRIEF.md)
 1. One themed five-question pack, generated then explicitly reviewed and approved by the streamer; retain a prepared fallback.
 2. Streamer start/pause/next controls and a quiet OBS browser overlay.
 3. Chat answers, deterministic scoring, individual tabs, and one shared goal.
@@ -32,7 +38,7 @@
 - All ten tests and syntax checks pass. HTTP checks cover same-origin mutation restrictions, live connection gating, asset serving, demo isolation, and answer hiding. A mocked EventSub test verifies duplicate events and broadcaster messages cannot add answers.
 - Restarted the server in this workspace to load the new implementation. User reauthorized Twitch; the new server confirms Chat subscribed on woadi_.
 - Live trivia verified by the user and server: round three in reveal, one accepted answer, jaydubs1980 with one tab, community total one. Approval, real chat ingestion, reveal, and scoring are working together.
-- Remaining demo milestones: generated pack workflow and curated Last Call voting finale. No subscriptions/celebrations added yet.
+- Remaining P0 milestones: trivia stop/OBS stabilization, staged mystery doors, approved surprise playback, tab-based influence, and finale emergency controls. Generated packs and celebrations are P1 under the updated brief.
 
 ## Windows runbook
 1. Edit .env locally and set TWITCH_CLIENT_SECRET. Do not paste secrets into chat.

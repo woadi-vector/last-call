@@ -4,6 +4,8 @@ This is the first small milestone of the **Last Call** hackathon project: author
 
 The next milestone adds a prepared five-question pack, streamer approval, timed rounds, individual tabs, a shared community goal, and a quiet OBS overlay. AI generation and the Last Call finale are still planned. Work and verification are tracked in `DEVELOPMENT.md`.
 
+The current product scope is in `BUILD_BRIEF.md`. Start the next development session with `MORNING_HANDOFF.md`, which records verified P0 work, remaining gaps, and the proposed three-door finale. Remote moderation and full AI discovery are deferred.
+
 ## Requirements
 
 - Node.js **22 or newer** (Node 24 recommended). No npm dependency install required.
