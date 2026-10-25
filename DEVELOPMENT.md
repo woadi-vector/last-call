@@ -30,7 +30,8 @@
 - Kept live controls on loopback; mutations require same-origin requests and a custom header; Host validation guards against DNS rebinding.
 - Browser rehearsal verified approval, start, answer submission, pause, reveal, tab award, and next question. Demo left paused on question two with one tab.
 - All ten tests and syntax checks pass. HTTP checks cover same-origin mutation restrictions, live connection gating, asset serving, demo isolation, and answer hiding. A mocked EventSub test verifies duplicate events and broadcaster messages cannot add answers.
-- Restarted the server in this workspace to load the new implementation. Live Twitch needs reauthorization; real chat scoring is pending verification.
+- Restarted the server in this workspace to load the new implementation. User reauthorized Twitch; the new server confirms Chat subscribed on woadi_.
+- Live trivia verified by the user and server: round three in reveal, one accepted answer, jaydubs1980 with one tab, community total one. Approval, real chat ingestion, reveal, and scoring are working together.
 - Remaining demo milestones: generated pack workflow and curated Last Call voting finale. No subscriptions/celebrations added yet.
 
 ## Windows runbook
