@@ -1,0 +1,13 @@
+{
+  "name": "last-call-twitch",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Last Call — Twitch chat connection milestone",
+  "scripts": {
+    "start": "node --env-file=.env src/server.mjs",
+    "test": "node --test",
+    "check": "node --check src/server.mjs"
+  },
+  "engines": { "node": ">=22" }
+}
