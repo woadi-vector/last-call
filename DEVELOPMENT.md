@@ -50,3 +50,11 @@
 
 Use npm.cmd in PowerShell if npm.ps1 is blocked. No npm install is needed.
 Keep the dashboard bound to loopback. Phone control of Codex is separate from exposing this app.
+
+## Audience overlay design review
+- Opened the rehearsal dashboard's Open overlay link and captured an active question separately from producer controls.
+- Verified during the open answer window that the overlay API omits answer, explanation and producer review fields. Browser view shows no correct-answer highlight or explanation. All ten tests still pass.
+- Restarted the previously stopped local app for this review. No live Twitch authorization or gameplay was performed; screenshots use the isolated demo state.
+- Current audience card is about 940 pixels wide at its default desktop size; question text is prominent but answer choices and utility labels are small. Actual OBS-over-gameplay readability is still unverified.
+- Next design changes to consider: compact gameplay layout with larger answer text, and silent +1 TAB feedback with subtle community-progress animation. Do not expand into AI/moderator workflows before proving gameplay.
+- Preview captured to outputs/overlay-answers-open.jpg (ignored by Git). No feature code changed in this review.
