@@ -15,9 +15,10 @@ async function jsonOrThrow(response) {
 }
 
 export class TwitchConnection {
-  constructor(config, log = console.log) {
+  constructor(config, log = console.log, onMessage = () => {}) {
     this.config = config;
     this.log = log;
+    this.onMessage = onMessage;
     this.authStates = new Map();
     this.token = null;
     this.user = null;
@@ -89,14 +90,24 @@ export class TwitchConnection {
     const generation = this.socketGeneration;
     this.shuttingDown = false;
     if (this.reconnectTimer) clearTimeout(this.reconnectTimer);
-    if (this.socket) { try { this.socket.close(); } catch {} }
+    const previousSocket = this.socket;
+    const transferring = url !== 'wss://eventsub.wss.twitch.tv/ws';
+    this.transferringFrom = transferring ? previousSocket : null;
+    if (previousSocket && !transferring) { try { previousSocket.close(); } catch {} }
     this.status = 'Connecting to Twitch EventSub';
     const socket = new WebSocket(url);
     this.socket = socket;
     socket.addEventListener('open', () => { if (generation === this.socketGeneration) this.log('EventSub socket connected'); });
     socket.addEventListener('message', event => {
-      if (generation !== this.socketGeneration) return;
-      try { this.onSocketMessage(JSON.parse(event.data), generation).catch(err => this.log(`EventSub error: ${err.message}`)); }
+      if (generation !== this.socketGeneration && socket !== this.transferringFrom) return;
+      try {
+        const payload = JSON.parse(event.data);
+        if (transferring && payload.metadata?.message_type === 'session_welcome') {
+          this.transferringFrom = null;
+          previousSocket?.close();
+        }
+        this.onSocketMessage(payload, generation, transferring).catch(err => this.log(`EventSub error: ${err.message}`));
+      }
       catch (err) { this.log(`Invalid EventSub message: ${err.message}`); }
     });
     socket.addEventListener('error', () => { if (generation === this.socketGeneration) this.log('EventSub socket error'); });
@@ -107,9 +118,10 @@ export class TwitchConnection {
     });
   }
 
-  async onSocketMessage(payload, generation) {
+  async onSocketMessage(payload, generation, transferring = false) {
     const type = payload.metadata?.message_type;
     if (type === 'session_welcome') {
+      if (transferring) { this.status = 'Chat subscribed'; return; }
       const sessionId = payload.payload?.session?.id;
       if (!sessionId) throw new Error('Missing EventSub session ID');
       const data = await this.api('/eventsub/subscriptions', {
@@ -136,14 +148,16 @@ export class TwitchConnection {
     this.messageCount++;
     this.lastMessage = {from:event.chatter_user_name || event.chatter_user_login || 'unknown',text:message,time:new Date().toISOString()};
     this.log(`[chat] ${this.lastMessage.from}: ${message}`);
+    if (event.chatter_user_id !== this.user.id) this.onMessage(event);
     if (parseCommand(message) !== 'ping') return;
     if (event.chatter_user_id === this.user.id) return; // Avoid bot self-replies.
     try {
-      await this.api('/chat/messages', {method:'POST',body:JSON.stringify({broadcaster_id:this.channel.id,sender_id:this.user.id,message:`Last Call is listening! Welcome to the bar, ${event.chatter_user_name || 'friend'}!`})});
+      const result = await this.api('/chat/messages', {method:'POST',body:JSON.stringify({broadcaster_id:this.channel.id,sender_id:this.user.id,message:`Last Call is listening! Welcome to the bar, ${event.chatter_user_name || 'friend'}!`})});
+      if (!result.data?.[0]?.is_sent) throw new Error('Twitch did not send the chat reply');
       this.log('Sent Last Call ping reply');
     } catch (err) { this.log(`Could not send reply: ${err.message}`); }
   }
 
   snapshot() { return {status:this.status,account:this.user?.login || null,channel:this.channel?.login || null,messageCount:this.messageCount,lastMessage:this.lastMessage}; }
-  stop() { this.shuttingDown = true; if (this.reconnectTimer) clearTimeout(this.reconnectTimer); this.socket?.close(); }
+  stop() { this.shuttingDown = true; if (this.reconnectTimer) clearTimeout(this.reconnectTimer); this.transferringFrom?.close(); this.socket?.close(); }
 }

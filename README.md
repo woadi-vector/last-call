@@ -1,8 +1,8 @@
-# Last Call — Day 1 Twitch Connection
+# Last Call — Twitch Trivia
 
 This is the first small milestone of the **Last Call** hackathon project: authorize your own Twitch channel, receive chat messages via EventSub WebSocket, and reply to `!lastcall ping`.
 
-It is not yet the trivia game. See the master plan for the full scope.
+The next milestone adds a prepared five-question pack, streamer approval, timed rounds, individual tabs, a shared community goal, and a quiet OBS overlay. AI generation and the Last Call finale are still planned. Work and verification are tracked in `DEVELOPMENT.md`.
 
 ## Requirements
 
@@ -23,7 +23,21 @@ It is not yet the trivia game. See the master plan for the full scope.
 8. Click **Connect Twitch** and authorize while signed in as **woadi_**. Only `user:read:chat` and `user:write:chat` are requested for this first milestone.
 9. The status should become **Chat subscribed**. Have another Twitch user type `!lastcall ping` into your channel chat. You should see the chat message in the terminal and a short bot reply in chat.
 
-You can view `http://localhost:3000/api/status` for a JSON status snapshot. The dashboard page currently shows a snapshot; refresh it to see new messages.
+You can view `http://localhost:3000/api/status` for a JSON status snapshot. The dashboard and overlay update automatically.
+
+## Play a round
+
+1. Start with `npm.cmd start` from this workspace. If the Desktop starter is still running on port 3000, stop that process first. Only one server should run.
+2. Open `http://localhost:3000` and connect Twitch. Every server restart requires reconnecting because tokens are kept in memory.
+3. Review the five questions and correct answers in the dashboard's pack review, then click **Approve pack** and **Start trivia**. Live starts require **Chat subscribed**.
+4. Viewers send `!answer A`, `!answer B`, `!answer C`, or `!answer D` in Twitch chat. Their first valid answer is final. The broadcaster account is excluded, as it also sends bot replies.
+5. Questions close after 25 seconds. **Pause** freezes the clock and stops answers; **Resume** continues. **Reveal answer** can close a question early.
+6. Correct answers earn one tab at reveal. The goal is ten community tabs. Click **Next question** to continue, and finish after question five.
+7. Add `http://localhost:3000/overlay` as an OBS Browser Source, suggested size 980 × 720. Only put the overlay on stream; the producer dashboard includes upcoming answers.
+
+Use `http://localhost:3000/demo` for a separate offline rehearsal. Approve and start the demo pack, then choose fake viewers and submit answers with the rehearsal buttons. Demo viewers never reach Twitch or live scores. Its overlay is `http://localhost:3000/overlay?demo=1`.
+
+Scores and approvals are session-only. Reset clears all tabs and requires pack approval again. There are no automatic question announcements or audio; use the overlay to show questions to viewers.
 
 ## Safety notes
 
@@ -32,7 +46,7 @@ You can view `http://localhost:3000/api/status` for a JSON status snapshot. The 
 - The local development server listens on `127.0.0.1` only and cannot be accessed from outside your computer.
 - Do not port-forward this server. It currently has no streamer dashboard authentication because it is local-only.
 - This prototype uses a broadcaster's own Twitch account. It will send chat replies as that account. A separate named bot account can be added later.
-- `!lastcall ping` is the only command that triggers a reply; normal chat messages are logged for the local test. Avoid streaming private chat data into public logs.
+- `!lastcall ping` triggers a chat reply; `!answer A–D` enters trivia without generating a reply. Normal chat messages are logged locally. Avoid streaming private chat data into public logs.
 
 ## Troubleshooting
 
