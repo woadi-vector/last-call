@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { TwitchConnection } from '../src/twitch.mjs';
 import { TriviaGame } from '../src/game.mjs';
+import { Finale } from '../src/finale.mjs';
 
 test('OAuth rejects expired or replayed state before exchanging credentials', async () => {
   const connection = new TwitchConnection({clientId:'example',redirectUri:'http://localhost:3000/auth/callback'});
@@ -53,4 +54,17 @@ test('EventSub chat reaches trivia once while broadcaster messages are ignored',
   assert.equal(game.snapshot().answerCount,1);
   game.act('reveal');
   assert.equal(game.snapshot().totalTabs,1);
+});
+
+test('EventSub door ballots use the same viewer identity and never double-spend', async () => {
+  const game=new TriviaGame();game.act('approve');game.act('start');game.answer('viewer','Viewer','!answer B');game.act('reveal');game.act('stop');
+  const finale=new Finale(game);
+  for(let id=1;id<=3;id++){finale.approve(id);finale.act('reveal-door');}
+  finale.act('open-vote');
+  const connection=new TwitchConnection({},()=>{},event=>finale.vote(event.chatter_user_id,event.message.text));
+  connection.user=connection.channel={id:'owner'};
+  const payload={metadata:{message_type:'notification',subscription_type:'channel.chat.message',message_id:'ballot'},payload:{event:{chatter_user_id:'viewer',message:{text:'!door 2'}}}};
+  await connection.onSocketMessage(payload,0);await connection.onSocketMessage(payload,0);
+  await connection.onSocketMessage({...payload,metadata:{...payload.metadata,message_id:'ballot-again'}},0);
+  assert.equal(finale.ballots.size,1);assert.equal(game.players.get('viewer').tabs,0);assert.equal(game.totalTabs,1);
 });

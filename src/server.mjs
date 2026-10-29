@@ -3,15 +3,19 @@ import { validateConfig } from './logic.mjs';
 import { TwitchConnection } from './twitch.mjs';
 import { TriviaGame } from './game.mjs';
 import { createHandler } from './app.mjs';
+import { Finale } from './finale.mjs';
 let config;
 try { config = validateConfig(process.env); }
 catch (error) { console.error(`Configuration error: ${error.message}`); process.exit(1); }
 const game = new TriviaGame();
 const demoGame = new TriviaGame();
+const finale = new Finale(game);
+const demoFinale = new Finale(demoGame);
 const twitch = new TwitchConnection(config, message => console.log(`[${new Date().toISOString()}] ${message}`), event => {
   game.answer(event.chatter_user_id,event.chatter_user_name || event.chatter_user_login,event.message?.text);
+  finale.vote(event.chatter_user_id,event.message?.text);
 });
-const server = http.createServer(createHandler({config,twitch,game,demoGame}));
+const server = http.createServer(createHandler({config,twitch,game,demoGame,finale,demoFinale}));
 server.on('error',error => {
   console.error(error.code === 'EADDRINUSE' ? `Port ${config.port} is already in use. Stop the existing Last Call server before starting this copy.` : 'The local server could not start.');
   process.exitCode = 1;

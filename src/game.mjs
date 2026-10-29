@@ -94,6 +94,12 @@ export class TriviaGame {
     this.answers.set(id,{answer:match[1].toUpperCase().charCodeAt(0) - 65});
     return true;
   }
+  spendTab(id) {
+    const player=this.players.get(id);
+    if (!player || player.tabs<1) return false;
+    player.tabs--; return true;
+  }
+  refundTab(id) { const player=this.players.get(id); if(player) player.tabs++; }
   snapshot(producer = false) {
     this.tick();
     const current = this.pack.questions[this.index];

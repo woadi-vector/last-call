@@ -2,7 +2,7 @@
 
 This is the first small milestone of the **Last Call** hackathon project: authorize your own Twitch channel, receive chat messages via EventSub WebSocket, and reply to `!lastcall ping`.
 
-The next milestone adds a prepared five-question pack, streamer approval, timed rounds, individual tabs, a shared community goal, and a quiet OBS overlay. AI generation and the Last Call finale are still planned. Work and verification are tracked in `DEVELOPMENT.md`.
+The app includes a prepared five-question pack, streamer approval, timed rounds, individual tabs, a shared community goal, a quiet OBS overlay, and a three-door Last Call finale using approved original demo segments. AI generation remains deferred. Work and verification are tracked in `DEVELOPMENT.md`.
 
 The current product scope is in `BUILD_BRIEF.md`. Start the next development session with `MORNING_HANDOFF.md`, which records verified P0 work, remaining gaps, and the proposed three-door finale. Remote moderation and full AI discovery are deferred.
 
@@ -40,6 +40,14 @@ You can view `http://localhost:3000/api/status` for a JSON status snapshot. The 
 **Stop Trivia · keep tabs** ends trivia immediately and preserves all tabs already earned. The current unrevealed round is cancelled without awarding tabs; its question disappears and new answers are rejected. Stop is final for this show; use Pause if you intend to resume. Reset is separate and clears the scores and approval.
 
 The audience overlay shows a silent **+1 TAB** reward after reveal, with the winning viewer names and a gently filling community meter. Larger groups show up to three names plus a count. Refreshing/reconnecting does not replay old rewards. Reduced-motion preferences remove the animations. No sound files or audio playback are used.
+
+## Three Doors / Last Call
+
+See `FINALE_RUNBOOK.md` for the full short-show flow. Preview and approve the three original silent segments at `/curate` (keep off stream), reveal the three themes manually from the dashboard, then finish/stop trivia and open voting. Viewers spend one earned tab with `!door 1`, `!door 2` or `!door 3`; only one ballot counts per viewer. Close voting, resolve a tie/no-vote choice if needed, then open the winning door.
+
+Use `/bar` as a separate **1920 × 1080 OBS Browser Source** for the virtual bar. Destinations stay out of streamer/audience state until playback starts. Pause, resume, skip, stop, emergency removal and end-show are in streamer controls. One 18-second silent segment plays, then the show ends naturally. These original demo animations are not AI video discovery.
+
+For rehearsal use `/curate?demo=1`, `/demo`, and `/bar?demo=1`. Live and rehearsal balances, ballots and approvals are separate. Leaderboards show remaining tabs; community progress tracks all tabs earned. Reset clears both trivia and finale state, including approvals.
 
 Use `http://localhost:3000/demo` for a separate offline rehearsal. Approve and start the demo pack, then choose fake viewers and submit answers with the rehearsal buttons. Demo viewers never reach Twitch or live scores. Its overlay is `http://localhost:3000/overlay?demo=1`.
 

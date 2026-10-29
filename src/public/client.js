@@ -23,7 +23,7 @@ function render(game) {
   text('round',game.round ? `ROUND ${game.round} / ${game.rounds}` : 'PRE-SHOW');
   text('phase',game.phase === 'review' && game.approved ? 'PACK APPROVED' : phaseNames[game.phase]);
   text('question',game.phase === 'stopped' ? 'Trivia’s taking a seat.' : game.phase === 'finished' ? 'Good chat. Great company.' : game.question?.prompt || 'A little trivia. A lot of main-character energy.');
-  text('hint',game.phase === 'stopped' ? `Answers closed. ${game.totalTabs} earned tabs kept safe for Last Call.` : game.phase === 'review' ? (overlay ? 'Your streamer is getting the next round ready.' : 'Review the questions below, approve the pack, then start the show.') : game.phase === 'question' ? 'Lock your answer in chat. First answer counts.' : game.phase === 'paused' ? 'Stretch break. Answers are paused; your tabs are safe.' : game.phase === 'finished' ? `${game.totalTabs} tabs earned together. Cheers, regulars.` : 'One tab for every correct answer. Ready for another?');
+  text('hint',game.phase === 'stopped' ? `Answers closed. ${game.totalTabs} ${game.totalTabs===1 ? 'tab' : 'tabs'} earned together. Your remaining balance stays with you.` : game.phase === 'review' ? (overlay ? 'Your streamer is getting the next round ready.' : 'Review the questions below, approve the pack, then start the show.') : game.phase === 'question' ? 'Lock your answer in chat. First answer counts.' : game.phase === 'paused' ? 'Stretch break. Answers are paused; your tabs are safe.' : game.phase === 'finished' ? `${game.totalTabs} tabs earned together. Cheers, regulars.` : 'One tab for every correct answer. Ready for another?');
   text('timer',['question','paused'].includes(game.phase) ? game.secondsLeft : '—');
   text('answers',game.answerCount);
   text('total-tabs',game.totalTabs);
@@ -113,7 +113,7 @@ async function refresh() {
 }
 document.addEventListener('click',async event=>{
   const button = event.target.closest('button');
-  if (!button || button.disabled || pending) return;
+  if (!button || (!button.dataset.action && !button.dataset.answer) || button.disabled || pending) return;
   if (button.dataset.action === 'reset' && !confirm('Reset this show? All tabs and approval will be cleared.')) return;
   pending = true;
   if (state) render(state);

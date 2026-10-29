@@ -1,5 +1,7 @@
 # Last Call — morning handoff
 
+Latest update October 29: the P0 three-door demo is implemented. Read FINALE_RUNBOOK.md for the current flow; the original plan below is historical. 22 tests pass. The original silent segments, local approvals, staged reveals, tab vote, virtual bar, playback controls and natural end passed automated/browser rehearsal. Live Twitch is reconnected. Next required verification: user approves live segments, earns a trivia tab, casts a live !door ballot, and checks the bar scene in OBS. AI/moderator/companion work stays deferred.
+
 Prepared October 25, 2026. Resume development on October 26; no overnight implementation or scheduled wakeup was requested.
 
 Update October 29: compact overlay, silent tab rewards, and non-destructive Stop Trivia are implemented and verified in the browser rehearsal. Fourteen tests and source syntax checks pass. The original status table below is historical where superseded: trivia Stop is now complete; actual OBS-over-gameplay and live Twitch rechecks are still pending. See DEVELOPMENT.md for evidence. Next milestone remains the P0 three-door finale once those live checks pass.

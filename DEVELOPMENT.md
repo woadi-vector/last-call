@@ -1,5 +1,16 @@
 # Last Call development tracker
 
+## October 29 — three-door finale
+- Added a separate deterministic Finale engine attached to trivia balances; Twitch feeds !door commands through the same viewer identity. First accepted ballot spends one tab, once; community earned progress is preserved. Ties and empty ballots require explicit selection.
+- Added three manually staged door reveals, a small overlay clue strip, local curator previews/approvals, streamer finale controls, and a separate virtual bar television scene.
+- Streamer/public snapshots omit unrevealed themes and all destination titles/files until chosen playback starts. Curator preparation is intentionally separate and local-only; no authenticated remote dashboard is claimed or exposed.
+- Playback requires approval and an explicit Open winning door action. Media routes restrict playback to the active approved segment and version, support byte ranges, and deny access after stop/removal/end. Preview routes are for local curator review.
+- Controls include pause/resume, skip, stop, emergency removal and end-show. Removing content stops the finale, revokes approval and refunds its affected ballots once. The bar polls at 250 ms and unloads media on stop, end or connection failure.
+- User chose original silent demo segments. Generated three original 18-second MP4 animations with local FFmpeg, committed as assets; no third-party footage, media service or npm dependency. FFmpeg is optional for regeneration, not app startup.
+- All 22 automated tests and syntax checks pass. Browser rehearsal verified previews, approval, staged reveals, one earned/spent tab selecting door 2, successful muted video playback, pause/resume, and natural end with TV unloaded. No browser console media errors. The bar fits a 1920 × 1080 viewport without scrolling/overflow.
+- Restarted the app to load the finale. User reauthorized Twitch; server confirms Chat subscribed on woadi_. Live finale remains preparing, with zero approvals and doors revealed, awaiting user curator review. Demo flow is separate and has ended naturally.
+- Live !door voting and actual OBS bar-scene verification remain pending. Full runbook: FINALE_RUNBOOK.md. Preview: outputs/last-call-bar.jpg. AI discovery, remote moderation, companion and further branching remain deferred.
+
 ## October 29 — compact overlay and Stop Trivia
 - Added Stop Trivia to the existing state machine and dashboard. It preserves prior tabs/community progress, cancels an unrevealed round without awarding it, clears pending answers, hides its question, and rejects further play until reset. Pause/resume behavior is unchanged.
 - Stop preempts pending lazy deadline processing. If another request has already revealed the round, its awarded tabs remain. Repeated stop is safe; reset remains the only destructive score-clearing control.
