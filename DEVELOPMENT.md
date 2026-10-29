@@ -66,6 +66,8 @@ Keep the dashboard bound to loopback. Phone control of Codex is separate from ex
 - Window capture failed on initial inspection and again after refreshing the window binding and activating it. Final error: window capture timed out: timed out waiting on channel.
 - Stopped desktop automation after the documented recovery attempt. No scene edits or stream/record controls were operated. Visual OBS-over-gameplay verification remains pending.
 - Manual preview check: add a Browser Source using http://localhost:3000/overlay at 720 × 520, keep native scale, and place it away from the gameplay HUD. Use the /overlay?demo=1 URL for isolated rehearsal. Verify transparency, readable question/answers, reward visibility, and that Stop removes the question while keeping tabs. Do not mark Warzone readability verified without actual gameplay visible.
+- User subsequently confirmed the overlay "looks good, on the screen." OBS preview appearance is accepted based on user review. Actual Warzone HUD clearance was not explicitly confirmed, so it remains part of the full-show rehearsal rather than an independently verified result.
+- Next implementation milestone: P0 three mystery doors, manual staged reveals, earned-tab voting, approved surprise playback, and immediate finale controls. AI discovery, remote moderator access and companion features remain deferred.
 
 ## Audience overlay design review
 - Opened the rehearsal dashboard's Open overlay link and captured an active question separately from producer controls.
