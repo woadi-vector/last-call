@@ -32,6 +32,11 @@ test('HTTP controls isolate rehearsal, require same-origin and keep answers out 
   assert.equal(publicState.question.answer,undefined);
   assert.equal(publicState.review,undefined);
   assert.equal(JSON.parse((await request('/api/demo')).body).review.length,5);
-  for (const path of ['/','/demo','/overlay','/style.css','/client.js']) assert.equal((await request(path)).status,200);
+  for (const path of ['/','/demo','/overlay','/style.css','/overlay.css','/client.js']) assert.equal((await request(path)).status,200);
+  await request('/api/demo/control',{action:'reveal'});
+  assert.equal(JSON.parse((await request('/api/demo/game')).body).totalTabs,1);
+  assert.equal((await request('/api/demo/control',{action:'stop'})).status,200);
+  assert.equal(JSON.parse((await request('/api/demo/game')).body).totalTabs,1);
+  assert.equal(JSON.parse((await request('/api/demo/answer',{viewer:2,answer:'B'})).body).accepted,false);
   assert.equal((await request('/auth/callback?code=secret-example&state=bad')).body.includes('secret-example'),false);
 });

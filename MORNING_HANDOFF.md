@@ -2,6 +2,8 @@
 
 Prepared October 25, 2026. Resume development on October 26; no overnight implementation or scheduled wakeup was requested.
 
+Update October 29: compact overlay, silent tab rewards, and non-destructive Stop Trivia are implemented and verified in the browser rehearsal. Fourteen tests and source syntax checks pass. The original status table below is historical where superseded: trivia Stop is now complete; actual OBS-over-gameplay and live Twitch rechecks are still pending. See DEVELOPMENT.md for evidence. Next milestone remains the P0 three-door finale once those live checks pass.
+
 ## Current brief
 
 `BUILD_BRIEF.md` preserves the user's updated product requirements verbatim and takes precedence over earlier scope notes.

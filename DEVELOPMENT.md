@@ -1,5 +1,14 @@
 # Last Call development tracker
 
+## October 29 — compact overlay and Stop Trivia
+- Added Stop Trivia to the existing state machine and dashboard. It preserves prior tabs/community progress, cancels an unrevealed round without awarding it, clears pending answers, hides its question, and rejects further play until reset. Pause/resume behavior is unchanged.
+- Stop preempts pending lazy deadline processing. If another request has already revealed the round, its awarded tabs remain. Repeated stop is safe; reset remains the only destructive score-clearing control.
+- Added a dedicated overlay stylesheet. Default card width is 696px inside a 720px Browser Source, down from 940px; answers use 21px text instead of 14px. Open-question card is about 296px tall; reveal expands for explanation. Suggested OBS source is 720 × 520 with transparent document/body backgrounds.
+- Added bounded server reward batches emitted only on scoring. Overlay shows a silent +1 TAB toast with up to three names and an overflow count, a small coin animation, and animated shared progress. Reduced-motion CSS disables animation. Rewards do not replay on initial load, reload or reconnect.
+- Browser rehearsal: answered/revealed three rounds for three tabs; submitted a correct answer in round four, then stopped before reveal. Final state: stopped, zero pending answers, three tabs preserved. Overlay stopped view matches. Verified no toast before reveal, toast after scoring, and no replay on overlay reload. No browser console errors observed.
+- All fourteen tests and all source syntax checks pass, including stop while open/paused/revealed, pending deadlines, blocked answers after stop, reward stability/bounds, and HTTP stop routing. No dependencies added. No .env or tokens read/modified.
+- App started from this workspace. Twitch is disconnected pending user reauthorization; new controls/rewards still need a real-chat recheck and actual OBS-over-Warzone placement review. Browser screenshots are in ignored outputs/. AI/moderator/companion work remains deferred.
+
 ## Current scope and morning resume
 - The October 25 updated user brief is preserved in `BUILD_BRIEF.md` and supersedes the earlier milestone sketch below.
 - `MORNING_HANDOFF.md` maps the actual implementation to P0, records gaps, and proposes the smallest staged three-door finale.

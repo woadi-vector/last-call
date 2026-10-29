@@ -45,3 +45,69 @@ test('five rounds finish without overflowing, reset removes scores and approval'
   assert.equal(game.snapshot().approved,false);
   assert.deepEqual(game.snapshot().leaderboard,[]);
 });
+
+test('stop cancels an open round, preserves prior tabs, and blocks further play', () => {
+  let clock = 0;
+  const game = new TriviaGame({now:()=>clock,duration:1000});
+  game.act('approve'); game.act('start');
+  game.answer('viewer','Regular','!answer B'); game.act('reveal'); game.act('next');
+  game.answer('viewer','Regular','!answer C');
+  game.act('stop');
+  clock += 5000;
+  assert.equal(game.snapshot().phase,'stopped');
+  assert.equal(game.snapshot().totalTabs,1);
+  assert.equal(game.snapshot().leaderboard[0].tabs,1);
+  assert.equal(game.snapshot().question,null);
+  assert.equal(game.snapshot().reward,null);
+  assert.equal(game.snapshot().answerCount,0);
+  assert.equal(game.answer('late','Late','!answer C'),false);
+  for (const action of ['resume','reveal','next','start']) assert.throws(()=>game.act(action));
+  game.act('stop'); // Repeated emergency stop is safe.
+  assert.equal(game.snapshot().totalTabs,1);
+});
+
+test('stop works while paused or revealed; a pending deadline cannot award after stop', () => {
+  for (const phase of ['question','paused','reveal']) {
+    let clock = 0;
+    const game = new TriviaGame({now:()=>clock,duration:1000});
+    game.act('approve'); game.act('start'); game.answer('viewer','Regular','!answer B');
+    if (phase === 'paused') game.act('pause');
+    if (phase === 'reveal') game.act('reveal');
+    clock = 2000;
+    game.act('stop');
+    assert.equal(game.snapshot().totalTabs,phase === 'reveal' ? 1 : 0);
+    assert.equal(game.snapshot().phase,'stopped');
+  }
+});
+
+test('reward batches contain only scored winners and are stable across polling', () => {
+  const game = new TriviaGame({now:()=>1234});
+  game.act('approve'); game.act('start');
+  game.answer('yes','Winner','!answer B'); game.answer('no','Other','!answer A');
+  assert.equal(game.snapshot().reward,null);
+  game.act('pause'); assert.equal(game.snapshot().reward,null);
+  game.act('reveal');
+  const reward = game.snapshot().reward;
+  assert.deepEqual(reward.names,['Winner']);
+  assert.equal(reward.count,1);
+  assert.equal(reward.at,1234);
+  assert.deepEqual(game.snapshot().reward,reward);
+  game.reveal(); assert.equal(game.snapshot().totalTabs,1);
+  game.act('reset');
+  assert.equal(game.snapshot().reward,null);
+  game.act('approve'); game.act('start');
+  game.answer('yes','Winner','!answer B'); game.act('reveal');
+  assert.ok(game.snapshot().reward.id > reward.id);
+});
+
+test('crowded reward batches are bounded and wrong-only rounds have no reward', () => {
+  const game = new TriviaGame();
+  game.act('approve'); game.act('start');
+  for (let index=0;index<20;index++) game.answer(String(index),`Viewer ${index}`,'!answer B');
+  game.act('reveal');
+  assert.equal(game.snapshot().reward.names.length,3);
+  assert.equal(game.snapshot().reward.count,20);
+  assert.equal(game.snapshot().totalTabs,20);
+  game.act('next'); game.answer('wrong','Wrong','!answer A'); game.act('reveal');
+  assert.equal(game.snapshot().reward,null);
+});

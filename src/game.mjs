@@ -19,6 +19,8 @@ export class TriviaGame {
     this.reset();
   }
   reset() {
+    this.rewardSequence = (this.rewardSequence || 0) + 1;
+    this.reward = null;
     this.phase = 'review';
     this.index = -1;
     this.approved = false;
@@ -37,16 +39,29 @@ export class TriviaGame {
     this.phase = 'question';
   }
   reveal() {
+    if (!['question','paused'].includes(this.phase)) return;
     this.phase = 'reveal';
     this.deadline = null;
+    const winners = [];
     for (const [id, entry] of this.answers) {
       if (entry.answer === this.pack.questions[this.index].answer) {
         this.players.get(id).tabs++;
         this.totalTabs++;
+        winners.push(this.players.get(id).name);
       }
     }
+    this.reward = winners.length ? {id:++this.rewardSequence,at:this.now(),names:winners.slice(0,3),count:winners.length} : null;
   }
   act(action) {
+    // Stop preempts lazy deadline processing: an unrevealed round is cancelled.
+    if (action === 'stop' && ['question','paused','reveal','stopped'].includes(this.phase)) {
+      this.phase = 'stopped';
+      this.deadline = null;
+      this.remaining = 0;
+      this.answers.clear();
+      this.reward = null;
+      return;
+    }
     this.tick();
     if (action === 'reset') { this.reset(); return; }
     if (action === 'approve' && this.phase === 'review') { this.approved = true; return; }
@@ -90,7 +105,8 @@ export class TriviaGame {
       secondsLeft:Math.ceil((this.phase === 'question' ? Math.max(0,this.deadline-this.now()) : this.phase === 'paused' ? this.remaining : 0)/1000),
       answerCount:this.answers.size, totalTabs:this.totalTabs, communityGoal:10,
       leaderboard:[...this.players.values()].sort((a,b)=>b.tabs-a.tabs || a.name.localeCompare(b.name)).slice(0,8),
-      question:current ? {prompt:current.prompt,options:current.options,...(showAnswer ? {answer:current.answer,note:current.note} : {})} : null,
+      reward:this.reward,
+      question:current && this.phase !== 'stopped' ? {prompt:current.prompt,options:current.options,...(showAnswer ? {answer:current.answer,note:current.note} : {})} : null,
     };
     if (producer) state.review = this.pack.questions;
     return state;

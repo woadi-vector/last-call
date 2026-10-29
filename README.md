@@ -35,7 +35,11 @@ You can view `http://localhost:3000/api/status` for a JSON status snapshot. The 
 4. Viewers send `!answer A`, `!answer B`, `!answer C`, or `!answer D` in Twitch chat. Their first valid answer is final. The broadcaster account is excluded, as it also sends bot replies.
 5. Questions close after 25 seconds. **Pause** freezes the clock and stops answers; **Resume** continues. **Reveal answer** can close a question early.
 6. Correct answers earn one tab at reveal. The goal is ten community tabs. Click **Next question** to continue, and finish after question five.
-7. Add `http://localhost:3000/overlay` as an OBS Browser Source, suggested size 980 × 720. Only put the overlay on stream; the producer dashboard includes upcoming answers.
+7. Add `http://localhost:3000/overlay` as an OBS Browser Source, size **720 × 520**. Keep it at native scale initially; position it away from the gameplay HUD. The surrounding page is transparent. Only put the overlay on stream; the producer dashboard includes upcoming answers.
+
+**Stop Trivia · keep tabs** ends trivia immediately and preserves all tabs already earned. The current unrevealed round is cancelled without awarding tabs; its question disappears and new answers are rejected. Stop is final for this show; use Pause if you intend to resume. Reset is separate and clears the scores and approval.
+
+The audience overlay shows a silent **+1 TAB** reward after reveal, with the winning viewer names and a gently filling community meter. Larger groups show up to three names plus a count. Refreshing/reconnecting does not replay old rewards. Reduced-motion preferences remove the animations. No sound files or audio playback are used.
 
 Use `http://localhost:3000/demo` for a separate offline rehearsal. Approve and start the demo pack, then choose fake viewers and submit answers with the rehearsal buttons. Demo viewers never reach Twitch or live scores. Its overlay is `http://localhost:3000/overlay?demo=1`.
 

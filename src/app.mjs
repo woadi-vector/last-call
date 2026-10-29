@@ -5,6 +5,7 @@ const assets = new Map([
   ['/demo', ['dashboard.html','text/html; charset=utf-8']],
   ['/overlay', ['overlay.html','text/html; charset=utf-8']],
   ['/style.css', ['style.css','text/css; charset=utf-8']],
+  ['/overlay.css', ['overlay.css','text/css; charset=utf-8']],
   ['/client.js', ['client.js','text/javascript; charset=utf-8']],
 ]);
 

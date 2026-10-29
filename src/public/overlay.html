@@ -1,1 +1,16 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Last Call · Stream overlay</title><link rel="stylesheet" href="/style.css"><script src="/client.js" defer></script></head><body class="overlay"><main><section class="stage panel"><div class="section-label"><span>LAST CALL · <span id="pack-title">TRIVIA</span></span><span id="round">PRE-SHOW</span></div><div id="phase" class="pill">WELCOME IN</div><h2 id="question">Your next side quest is on its way.</h2><p id="hint"></p><div id="options" class="options"></div><p id="explanation" class="explanation"></p><div class="stage-footer"><div><strong id="timer">—</strong><span>SECONDS</span></div><div><strong id="answers">0</strong><span>ANSWERS LOCKED</span></div><p>Play in chat: <code>!answer A</code></p></div><div class="overlay-goal"><span>COMMUNITY TAB</span><progress id="goal" max="10" value="0"></progress><b><span id="total-tabs">0</span> / 10</b></div></section><div id="error" class="banner error" role="alert" hidden></div></main></body></html>
+<!doctype html>
+<html lang="en" class="overlay-document">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Last Call · Stream overlay</title><link rel="stylesheet" href="/style.css"><link rel="stylesheet" href="/overlay.css"><script src="/client.js" defer></script></head>
+<body class="overlay"><main>
+<section class="stage panel" aria-label="Live trivia">
+  <div class="overlay-header"><div class="section-label"><strong>LAST CALL</strong><span id="round">PRE-SHOW</span></div><div id="phase" class="pill">WELCOME IN</div></div>
+  <h2 id="question">Your next side quest is on its way.</h2>
+  <p id="hint"></p>
+  <div id="options" class="options"></div>
+  <p id="explanation" class="explanation"></p>
+  <div class="stage-footer"><div class="time"><strong id="timer">—</strong><span>SEC</span></div><div><strong id="answers">0</strong><span>LOCKED IN</span></div><p>PLAY IN CHAT <code>!answer A–D</code></p></div>
+  <div class="overlay-goal"><span>COMMUNITY TAB</span><div id="goal" role="meter" aria-label="Community tabs" aria-valuemin="0" aria-valuemax="10" aria-valuenow="0"><div id="goal-fill"></div></div><b><span id="total-tabs">0</span> / 10</b></div>
+</section>
+<div id="tab-reward" class="tab-reward" role="status" aria-live="polite" hidden><span class="coin" aria-hidden="true">✦</span><div><strong id="reward-label">+1 TAB</strong><span id="reward-names"></span></div></div>
+<div id="error" class="banner error" role="alert" hidden></div>
+</main></body></html>
