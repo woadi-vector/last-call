@@ -7,7 +7,8 @@
 - Added bounded server reward batches emitted only on scoring. Overlay shows a silent +1 TAB toast with up to three names and an overflow count, a small coin animation, and animated shared progress. Reduced-motion CSS disables animation. Rewards do not replay on initial load, reload or reconnect.
 - Browser rehearsal: answered/revealed three rounds for three tabs; submitted a correct answer in round four, then stopped before reveal. Final state: stopped, zero pending answers, three tabs preserved. Overlay stopped view matches. Verified no toast before reveal, toast after scoring, and no replay on overlay reload. No browser console errors observed.
 - All fourteen tests and all source syntax checks pass, including stop while open/paused/revealed, pending deadlines, blocked answers after stop, reward stability/bounds, and HTTP stop routing. No dependencies added. No .env or tokens read/modified.
-- App started from this workspace. Twitch is disconnected pending user reauthorization; new controls/rewards still need a real-chat recheck and actual OBS-over-Warzone placement review. Browser screenshots are in ignored outputs/. AI/moderator/companion work remains deferred.
+- App started from this workspace. User reauthorized Twitch and completed the live reward/stop checklist. Server verification: Chat subscribed on woadi_, stopped during round two, jaydubs1980 retains one tab, community total one, zero pending answers, and no question in public state. Real-chat scoring and Stop are verified; the transient reward appearance is supported by the user's checklist completion and the prior browser rehearsal, not retained server history.
+- Actual OBS-over-Warzone placement/readability review is still pending. Browser screenshots are in ignored outputs/. AI/moderator/companion work remains deferred.
 
 ## Current scope and morning resume
 - The October 25 updated user brief is preserved in `BUILD_BRIEF.md` and supersedes the earlier milestone sketch below.
