@@ -7,6 +7,8 @@
   let state,pending=false,requestVersion=0,curatorRendered=false,playbackRevision=null,mediaState=null,networkLost=false,serverError=false;
   const video=$('television');
   const query=demo ? '?demo=1' : '';
+  if(mode==='curator') {set('mode-badge',demo ? 'REHEARSAL · SEPARATE APPROVALS' : 'LIVE TWITCH SHOW · PLAYBACK APPROVALS');document.body.dataset.mode=demo ? 'rehearsal' : 'live';}
+  if(demo && ['bar','hud'].includes(mode)) {const flag=document.createElement('div');flag.className='preview-flag';flag.textContent='REHEARSAL · NOT LIVE TWITCH';document.body.append(flag);}
   if($('bar-link')) $('bar-link').href='/bar'+query;
   if($('back-link')) $('back-link').href=demo ? '/demo' : '/';
   if($('demo-votes')) $('demo-votes').hidden=!demo;

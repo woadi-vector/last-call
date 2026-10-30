@@ -1,5 +1,13 @@
 # Last Call development tracker
 
+## October 30 — Studio and rehearsal polish
+- Added a five-question Show Pack Studio with editable source notes, evidence, choices, explanations and difficulty; question inclusion, isolated local draft save/load, original fallback, and a fresh approval gate when applying a pack. Pack replacement is blocked once trivia or staged door reveals have begun.
+- Optional server-side OpenAI Responses drafting uses structured output, store:false, bounded input and a timeout. Generated content is validated against supplied notes; no automatic fact verification is claimed. Fixed errors preserve the previous draft and keep upstream responses/credentials out of the UI. User chose to configure AI later; no actual OpenAI request was made or verified.
+- Added pre-show 25/45/60-second answer windows, clear live/rehearsal badges, mode-correct preparation links and show-readiness checks. Existing native Node architecture and original finale media are preserved; no dependencies added.
+- All 31 automated tests and source syntax checks pass. Browser rehearsal verified edit/exclude/save/load/apply, fresh approval, a four-question pack, a 60-second round, scoring and Stop retaining one tab. Unsafe source URLs lose their clickable link. No browser console errors observed.
+- Screenshots: outputs/show-pack-studio.jpg and outputs/show-pack-studio-editor.jpg. STUDIO_RUNBOOK.md documents manual operation and deferred real AI verification.
+- Protected the prior working checkpoint with tag pre-studio-polish-2026-10-30. Restarted the server to load changes; live Twitch needs reconnecting. Live scores/approvals remain session-only; saved drafts persist separately. No .env or secrets read/modified, recording, publishing or submission performed.
+
 ## October 30 — rehearsal accepted; capture next
 - User reports the rehearsal was good. Live Twitch flow and both OBS scenes are already confirmed; preserve the current feature scope for capture.
 - Checked the official Devpost rules for video, repository, description, main-build session ID and deadline requirements. SUBMISSION_CHECKLIST.md records sources and remaining delivery work; proposed final video target is 2:30.

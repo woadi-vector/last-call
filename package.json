@@ -3,11 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "description": "Last Call — Twitch chat connection milestone",
+  "description": "Last Call — approved Twitch trivia, show preparation and a community-directed finale",
   "scripts": {
     "start": "node --env-file=.env src/server.mjs",
     "test": "node --test",
-    "check": "node --check src/server.mjs && node --check src/app.mjs && node --check src/twitch.mjs && node --check src/game.mjs && node --check src/logic.mjs && node --check src/finale.mjs && node --check src/public/client.js && node --check src/public/finale.js"
+    "check": "node --check src/server.mjs && node --check src/app.mjs && node --check src/twitch.mjs && node --check src/game.mjs && node --check src/logic.mjs && node --check src/finale.mjs && node --check src/packs.mjs && node --check src/public/client.js && node --check src/public/finale.js && node --check src/public/studio.js"
   },
   "engines": { "node": ">=22" }
 }

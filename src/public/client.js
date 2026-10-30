@@ -14,11 +14,32 @@ if ($('demo-banner')) $('demo-banner').hidden = !demo;
 if ($('demo-controls')) $('demo-controls').hidden = !demo;
 if ($('overlay-link')) $('overlay-link').href = demo ? '/overlay?demo=1' : '/overlay';
 if (demo) document.querySelector('.connect')?.setAttribute('hidden','');
+text('mode-badge',demo ? 'REHEARSAL · FAKE VIEWERS · SEPARATE SCORES' : 'LIVE TWITCH SHOW');
+document.body.dataset.mode=demo ? 'rehearsal' : 'live';
+if($('studio-link')) $('studio-link').href=demo ? '/studio?demo=1' : '/studio';
+if($('curator-link')) $('curator-link').href=demo ? '/curate?demo=1' : '/curate';
+if($('studio-notice')) $('studio-notice').hidden=new URLSearchParams(location.search).get('pack')!=='updated';
 
 function error(message) { $('error').hidden = !message; $('error').textContent = message || ''; }
 function render(game) {
   state = game;
   document.body.dataset.phase = game.phase;
+  if($('studio-notice')) $('studio-notice').hidden=new URLSearchParams(location.search).get('pack')!=='updated' || game.approved || game.phase!=='review';
+  text('window-copy',`Questions close after ${game.answerWindowSeconds} seconds.`);
+  if($('answer-window')) {
+    if(document.activeElement!==$('answer-window')) $('answer-window').value=String(game.answerWindowSeconds);
+    $('answer-window').disabled=pending || game.phase!=='review';
+  }
+  if($('readiness')) {
+    const checks=[
+      [demo || connection?.status==='Chat subscribed',demo ? 'Offline rehearsal ready' : 'Twitch chat connected'],
+      [game.approved,`Trivia pack ${game.approved ? 'approved' : 'needs review and approval'}`],
+      [game.finale?.doors.filter(door=>door.approved).length===3,`${game.finale?.doors.filter(door=>door.approved).length || 0}/3 finale segments approved in Curator prep`],
+      [game.finale?.revealed===3,`${game.finale?.revealed || 0}/3 door clues revealed`],
+      [['stopped','finished'].includes(game.phase),'Trivia finished or stopped before finale voting'],
+    ];
+    $('readiness').replaceChildren(...checks.map(([ready,label])=>{const item=document.createElement('li');item.className=ready ? 'ready' : 'waiting';item.textContent=`${ready ? '✓' : '○'} ${label}`;return item;}));
+  }
   text('pack-title',game.title);
   text('round',game.round ? `ROUND ${game.round} / ${game.rounds}` : 'PRE-SHOW');
   text('phase',game.phase === 'review' && game.approved ? 'PACK APPROVED' : phaseNames[game.phase]);
@@ -50,16 +71,23 @@ function render(game) {
     if (!rows.length) { const row = document.createElement('li'); row.className = 'muted'; row.textContent = 'Your first regular is one answer away.'; rows.push(row); }
     $('leaderboard').replaceChildren(...rows);
   }
-  if ($('review') && !reviewRendered && game.review) {
+  text('review-origin',game.packOrigin==='ai' ? 'AI-assisted draft · human review required' : 'Prepared or manually edited pack');
+  const reviewKey=JSON.stringify(game.review);
+  if ($('review') && reviewRendered!==reviewKey && game.review) {
     $('review').replaceChildren(...game.review.map((question,index) => {
       const details = document.createElement('details');
       const summary = document.createElement('summary'); summary.textContent = `${index+1}. ${question.prompt}`;
       const answer = document.createElement('p'); const bold = document.createElement('strong');
       bold.textContent = `${String.fromCharCode(65+question.answer)} · ${question.options[question.answer]}`;
       answer.append(bold,document.createTextNode(` — ${question.note}`));
-      details.append(summary,answer); return details;
+      details.append(summary,answer);
+      if(question.source) {
+        const link=document.createElement('a');link.textContent=`Review source: ${question.source.label}`;link.href=question.source.url;link.target='_blank';link.rel='noopener noreferrer';
+        const source=document.createElement('p');source.append(link);details.append(source);
+      }
+      return details;
     }));
-    reviewRendered = true;
+    reviewRendered = reviewKey;
   }
   const available = {
     approve:game.phase === 'review' && !game.approved,
@@ -100,6 +128,13 @@ async function request(url,input) {
   if (!response.ok) throw new Error(result.error || 'Request failed');
   return result;
 }
+$('answer-window')?.addEventListener('change',async()=>{
+  if(pending) return;
+  const seconds=Number($('answer-window').value);pending=true;error('');
+  try {await request(demo ? '/api/demo/control':'/api/control',{action:'configure-window',seconds});}
+  catch(err){error(err.message);}
+  finally{pending=false;await refresh();}
+});
 async function refresh() {
   try {
     const results = await Promise.all([request(demo ? (overlay ? '/api/demo/game' : '/api/demo') : (overlay ? '/api/game' : '/api/producer')), demo ? Promise.resolve(null) : request('/api/status')]);

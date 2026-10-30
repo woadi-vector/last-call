@@ -2,7 +2,7 @@
 
 This is the first small milestone of the **Last Call** hackathon project: authorize your own Twitch channel, receive chat messages via EventSub WebSocket, and reply to `!lastcall ping`.
 
-The app includes a prepared five-question pack, streamer approval, timed rounds, individual tabs, a shared community goal, a quiet OBS overlay, and a three-door Last Call finale using approved original demo segments. AI generation remains deferred. Work and verification are tracked in `DEVELOPMENT.md`.
+The app includes a Show Pack Studio, streamer approval, timed rounds, individual tabs, a shared community goal, a quiet OBS overlay, and a three-door Last Call finale using approved original demo segments. The Studio works manually without an API key; optional AI drafting is implemented but awaits a real API check after local configuration. Work and verification are tracked in `DEVELOPMENT.md`.
 
 The current product scope is in `BUILD_BRIEF.md`. Start the next development session with `MORNING_HANDOFF.md`, which records verified P0 work, remaining gaps, and the proposed three-door finale. Remote moderation and full AI discovery are deferred.
 
@@ -33,13 +33,21 @@ You can view `http://localhost:3000/api/status` for a JSON status snapshot. The 
 2. Open `http://localhost:3000` and connect Twitch. Every server restart requires reconnecting because tokens are kept in memory.
 3. Review the five questions and correct answers in the dashboard's pack review, then click **Approve pack** and **Start trivia**. Live starts require **Chat subscribed**.
 4. Viewers send `!answer A`, `!answer B`, `!answer C`, or `!answer D` in Twitch chat. Their first valid answer is final. The broadcaster account is excluded, as it also sends bot replies.
-5. Questions close after 25 seconds. **Pause** freezes the clock and stops answers; **Resume** continues. **Reveal answer** can close a question early.
-6. Correct answers earn one tab at reveal. The goal is ten community tabs. Click **Next question** to continue, and finish after question five.
+5. Choose a 25-, 45-, or 60-second answer window before starting. **Pause** freezes the clock and stops answers; **Resume** continues. **Reveal answer** can close a question early.
+6. Correct answers earn one tab at reveal. The goal is ten community tabs. Click **Next question** to continue through the approved pack.
 7. Add `http://localhost:3000/overlay` as an OBS Browser Source, size **720 × 520**. Keep it at native scale initially; position it away from the gameplay HUD. The surrounding page is transparent. Only put the overlay on stream; the producer dashboard includes upcoming answers.
 
 **Stop Trivia · keep tabs** ends trivia immediately and preserves all tabs already earned. The current unrevealed round is cancelled without awarding tabs; its question disappears and new answers are rejected. Stop is final for this show; use Pause if you intend to resume. Reset is separate and clears the scores and approval.
 
 The audience overlay shows a silent **+1 TAB** reward after reveal, with the winning viewer names and a gently filling community meter. Larger groups show up to three names plus a count. Refreshing/reconnecting does not replay old rewards. Reduced-motion preferences remove the animations. No sound files or audio playback are used.
+
+## Show Pack Studio
+
+Open `http://localhost:3000/studio` to edit a prepared five-question draft, review its source notes, exclude questions, and save/load a local draft. Applying 1–5 included questions returns to controls and requires fresh streamer approval. The original trivia fallback remains available. Use `/studio?demo=1` for isolated rehearsal preparation. See `STUDIO_RUNBOOK.md` for the full workflow.
+
+Optional AI drafting uses a server-side `OPENAI_API_KEY` that you enter directly into local `.env`, never chat or the browser. Restart after configuring it; `OPENAI_MODEL` optionally overrides the default `gpt-5-mini`. No SDK or additional dependency is needed. Only the chosen theme and reference notes are sent when you click drafting. The app does not fetch source links or automatically verify facts; review every answer. Actual AI generation has not yet been verified with a configured key. Manual editing and the prepared pack work without one.
+
+Draft files persist locally in ignored `data/`; live and rehearsal drafts are separate. Scores, approvals and Twitch connections remain session-only. Mode badges, preparation links and readiness checks distinguish the two shows.
 
 ## Three Doors / Last Call
 

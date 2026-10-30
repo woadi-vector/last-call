@@ -13,10 +13,10 @@ Verified against the [official hackathon rules](https://twitchcon-codex.devpost.
 
 ## Capture plan
 
-- User reports the uninterrupted rehearsal went well. Keep feature scope fixed for capture.
+- User reports the uninterrupted rehearsal went well. After the bounded Studio/timer/readiness polish, repeat the short live rehearsal before capture; keep further feature scope fixed.
 - Suggested timing: 0:00–0:15 problem and concept; 0:15–0:40 Codex contribution; 0:40–1:20 real Twitch trivia and silent tab reward; 1:20–2:10 door reveals, one earned-tab ballot, and approved playback; 2:10–2:30 controls, natural ending and close.
 - Reuse the working two-scene OBS setup. Keep the curator page, unrevealed answers, credentials and terminal chat logs out of the capture.
-- Call the bundled media original silent demo segments. Do not imply AI discovery, remote moderation, or companion participation is implemented.
+- Call the bundled media original silent demo segments. Do not imply AI discovery, remote moderation, or companion participation is implemented. The manual Show Pack Studio works; describe optional AI drafting as unverified until a real configured request succeeds and is reviewed. Simulated API tests are not a live AI demonstration.
 - Use only material appropriate for inclusion in the submission; the bundled segments were created for this project.
 - Record only when the user asks to start capture. No recording, upload, publishing, account sharing or submission has been performed.
 

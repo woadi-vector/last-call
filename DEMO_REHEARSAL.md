@@ -6,7 +6,8 @@
 - Use the live URLs, not links containing demo=1 or /demo.
 - OBS Gameplay scene: /overlay at 720 × 520 over the game. Last Call scene: /bar at 1920 × 1080. Both scenes have been accepted by the user in OBS.
 - Reset the previous completed show only when ready to clear its scores and approvals. Review/approve the pack again; have the curator preview and approve all three segments again. Keep preparation and upcoming answers off stream.
-- Have jaydubs1980 ready in Twitch chat before starting the question. Keep one operator on the dashboard so controls and test commands stay in sync.
+- Have jaydubs1980 ready in Twitch chat before starting the question. Keep one operator on the dashboard so controls and test commands stay in sync. Choose a 60-second answer window for a less rushed check.
+- If demonstrating the Studio, edit/save/apply before approving the pack. Check the reviewed answer rather than assuming the original answer sequence. Applying clears approval. See STUDIO_RUNBOOK.md.
 
 ## Rehearsal sequence
 
@@ -24,7 +25,7 @@ Aim for 2 minutes 30 seconds. The [official rules](https://twitchcon-codex.devpo
 
 - Working today: Twitch OAuth/EventSub, approved trivia, first-answer scoring, tabs/shared goals, silent rewards, staged doors, earned-tab voting and approved playback controls.
 - The three clips are original silent demo animations. They are not discovered videos or examples of AI video analysis.
-- AI Show Pack preparation, AI discovery, remote moderator access and companion participation are future work.
+- The manual Show Pack Studio works: edit, exclude, save/load, review references and apply with fresh approval. Optional AI drafting is implemented but real generation is unverified until a local API key is configured and tested. AI discovery, remote moderator access and companion participation remain future work.
 - No speed bonus or paid-support advantage affects trivia scoring. Balances and approvals are session-only; restarting clears them.
 
 ## Done when

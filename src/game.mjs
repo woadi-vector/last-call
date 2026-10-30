@@ -31,6 +31,15 @@ export class TriviaGame {
     this.totalTabs = 0;
   }
   tick() { if (this.phase === 'question' && this.now() >= this.deadline) this.reveal(); }
+  configureWindow(seconds) {
+    if(this.phase!=='review') throw new Error('Set the answer window before starting trivia.');
+    if(![25,45,60].includes(seconds)) throw new Error('Choose a 25, 45 or 60 second answer window.');
+    this.duration=seconds*1000;this.remaining=this.duration;
+  }
+  installPack(pack) {
+    if(this.phase!=='review') throw new Error('Reset the show before replacing its trivia pack.');
+    this.pack=structuredClone(pack);this.approved=false;this.reward=null;this.index=-1;this.answers.clear();
+  }
   openQuestion() {
     this.index++;
     this.answers.clear();
@@ -106,7 +115,9 @@ export class TriviaGame {
     const showAnswer = ['reveal','finished'].includes(this.phase);
     const state = {
       title:this.pack.title, description:this.pack.description,
+      packOrigin:this.pack.origin || 'prepared',
       phase:this.phase, approved:this.approved,
+      answerWindowSeconds:this.duration/1000,
       round:Math.max(0,this.index+1), rounds:this.pack.questions.length,
       secondsLeft:Math.ceil((this.phase === 'question' ? Math.max(0,this.deadline-this.now()) : this.phase === 'paused' ? this.remaining : 0)/1000),
       answerCount:this.answers.size, totalTabs:this.totalTabs, communityGoal:10,

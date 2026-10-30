@@ -1,5 +1,6 @@
 import { readFile } from 'node:fs/promises';
 import { Finale } from './finale.mjs';
+import { PackStudio } from './packs.mjs';
 
 const assets = new Map([
   ['/', ['dashboard.html','text/html; charset=utf-8']],
@@ -12,9 +13,12 @@ const assets = new Map([
   ['/curate', ['curate.html','text/html; charset=utf-8']],
   ['/finale.js', ['finale.js','text/javascript; charset=utf-8']],
   ['/finale.css', ['finale.css','text/css; charset=utf-8']],
+  ['/studio', ['studio.html','text/html; charset=utf-8']],
+  ['/studio.js', ['studio.js','text/javascript; charset=utf-8']],
+  ['/studio.css', ['studio.css','text/css; charset=utf-8']],
 ]);
 
-export function createHandler({config,twitch,game,demoGame,finale=new Finale(game),demoFinale=new Finale(demoGame)}) {
+export function createHandler({config,twitch,game,demoGame,finale=new Finale(game),demoFinale=new Finale(demoGame),studio=new PackStudio(game),demoStudio=new PackStudio(demoGame)}) {
   const hosts = new Set([`localhost:${config.port}`,`127.0.0.1:${config.port}`]);
   const origins = new Set([...hosts].map(host => `http://${host}`));
   return async (req,res) => {
@@ -33,17 +37,30 @@ export function createHandler({config,twitch,game,demoGame,finale=new Finale(gam
       if (req.method === 'POST') {
         if (!origins.has(req.headers.origin) || req.headers['x-last-call'] !== 'control') return respond(403,{error:'Open controls from the local dashboard.'});
         const demo = url.pathname.startsWith('/api/demo/');
-        if (!['/api/control','/api/demo/control','/api/demo/answer','/api/finale/control','/api/demo/finale/control','/api/curator/approve','/api/demo/curator/approve'].includes(url.pathname)) return respond(404,{error:'Not found'});
+        const studioAction=/^\/api\/(?:demo\/)?studio\/(generate|save|load|apply|fallback|prepared)$/.exec(url.pathname)?.[1];
+        if (!studioAction && !['/api/control','/api/demo/control','/api/demo/answer','/api/finale/control','/api/demo/finale/control','/api/curator/approve','/api/demo/curator/approve'].includes(url.pathname)) return respond(404,{error:'Not found'});
         let body = '';
         for await (const chunk of req) {
           body += chunk;
-          if (body.length > 2048) return respond(413,{error:'Request too large'});
+          if (body.length > (studioAction ? 36_000 : 2048)) return respond(413,{error:'Request too large'});
         }
         let input;
         try { input = JSON.parse(body); } catch { return respond(400,{error:'Invalid JSON'}); }
         if (!input || typeof input !== 'object') return respond(400,{error:'Invalid request'});
         const selected = demo ? demoGame : game;
         const selectedFinale = demo ? demoFinale : finale;
+        const selectedStudio=demo ? demoStudio : studio;
+        if(studioAction) {
+          try {
+            if(['apply','fallback'].includes(studioAction) && (selectedFinale.phase!=='preparing' || selectedFinale.revealed>0)) return respond(409,{error:'Reset the show before changing the trivia pack after door reveals. Drafting and saving remain available.'});
+            const result=studioAction==='generate' ? await selectedStudio.generate(input.theme,input.sources) : studioAction==='load' ? await selectedStudio.load() : studioAction==='save' ? await selectedStudio.save(input.draft) : studioAction==='apply' ? selectedStudio.apply(input.draft) : studioAction==='prepared' ? selectedStudio.prepared() : selectedStudio.fallback();
+            return respond(200,{...result,canApply:selected.phase==='review' && selectedFinale.phase==='preparing' && selectedFinale.revealed===0});
+          } catch(error) {return respond(409,{error:error.code ? 'The local draft could not be saved. Your current show is unchanged.' : error.message});}
+        }
+        if(input.action==='configure-window' && ['/api/control','/api/demo/control'].includes(url.pathname)) {
+          try {selected.configureWindow(input.seconds);} catch(error) {return respond(409,{error:error.message});}
+          return respond(200,{...selected.snapshot(true),finale:selectedFinale.snapshot()});
+        }
         if(url.pathname.endsWith('/curator/approve')) {
           try { selectedFinale.approve(input.id); } catch(error) { return respond(409,{error:error.message}); }
           return respond(200,selectedFinale.curatorSnapshot());
@@ -64,6 +81,10 @@ export function createHandler({config,twitch,game,demoGame,finale=new Finale(gam
       }
       if (req.method !== 'GET' && !(req.method==='HEAD' && url.pathname.startsWith('/media/'))) return respond(405,{error:'Method not allowed'});
       const selectedFinale=url.searchParams.get('demo')==='1' ? demoFinale : finale;
+      if(url.pathname==='/api/studio') {
+        const selectedStudio=url.searchParams.get('demo')==='1' ? demoStudio : studio;
+        return respond(200,{...selectedStudio.snapshot(),canApply:selectedStudio.game.phase==='review' && selectedFinale.phase==='preparing' && selectedFinale.revealed===0});
+      }
       if(url.pathname==='/api/finale') return respond(200,selectedFinale.snapshot());
       if(url.pathname==='/api/curator') return respond(200,selectedFinale.curatorSnapshot());
       if(url.pathname.startsWith('/media/')) {
