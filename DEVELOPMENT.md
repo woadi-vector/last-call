@@ -1,5 +1,9 @@
 # Last Call development tracker
 
+## October 30 — OBS bar accepted
+- After setting up the separate Last Call OBS scene (/bar at 1920 × 1080), user confirmed: "its there and correct." OBS bar setup/appearance is accepted based on user review, alongside the earlier trivia-overlay acceptance.
+- Next: one uninterrupted short-show rehearsal across the two OBS scenes, then user-authorized demo capture. DEMO_REHEARSAL.md provides the sequence and accurate implementation claims. No new features or recording/streaming were started for this confirmation.
+
 ## October 30 — live Twitch finale verified
 - User confirmed the live pack and all three original segment approvals. The live server had recorded the pack approval but not segment approvals; recorded those user-confirmed segment approvals through the live curator UI.
 - Initial 25-second answer windows and manual round advancement caused timing mismatches. Staged a paused question to reduce the rush. Latest successful trivia state showed round three, jaydubs1980 with one earned tab and community total one; stopped trivia before opening voting.
