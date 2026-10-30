@@ -1,5 +1,13 @@
 # Last Call development tracker
 
+## October 30 — live Twitch finale verified
+- User confirmed the live pack and all three original segment approvals. The live server had recorded the pack approval but not segment approvals; recorded those user-confirmed segment approvals through the live curator UI.
+- Initial 25-second answer windows and manual round advancement caused timing mismatches. Staged a paused question to reduce the rush. Latest successful trivia state showed round three, jaydubs1980 with one earned tab and community total one; stopped trivia before opening voting.
+- All three live doors were revealed and approved. User sent !door 2 from jaydubs1980. Server verified exactly one accepted ballot for door two, remaining viewer tabs zero, and community earned total unchanged at one.
+- Closed voting and explicitly opened the winning door through streamer controls. Live /bar played the approved Deep Blue Signals original silent segment. Browser inspection verified decoded video, muted playback, time advancing (15.1467/18 seconds), and no media error.
+- The live finale ended naturally and the TV became paused, hidden, and had its media source removed. No browser console errors observed. Final server state: Chat subscribed, ended, selected door two, one ballot, one community tab earned, jaydubs1980 zero spendable tabs.
+- Evidence: outputs/live-finale-playback.jpg. No feature code changed. Actual OBS bar-scene confirmation and a concise full-show rehearsal remain before demo capture/submission. Existing automated suite remains 22 passing tests from the implementation checkpoint.
+
 ## October 29 — three-door finale
 - Added a separate deterministic Finale engine attached to trivia balances; Twitch feeds !door commands through the same viewer identity. First accepted ballot spends one tab, once; community earned progress is preserved. Ties and empty ballots require explicit selection.
 - Added three manually staged door reveals, a small overlay clue strip, local curator previews/approvals, streamer finale controls, and a separate virtual bar television scene.
@@ -8,8 +16,8 @@
 - Controls include pause/resume, skip, stop, emergency removal and end-show. Removing content stops the finale, revokes approval and refunds its affected ballots once. The bar polls at 250 ms and unloads media on stop, end or connection failure.
 - User chose original silent demo segments. Generated three original 18-second MP4 animations with local FFmpeg, committed as assets; no third-party footage, media service or npm dependency. FFmpeg is optional for regeneration, not app startup.
 - All 22 automated tests and syntax checks pass. Browser rehearsal verified previews, approval, staged reveals, one earned/spent tab selecting door 2, successful muted video playback, pause/resume, and natural end with TV unloaded. No browser console media errors. The bar fits a 1920 × 1080 viewport without scrolling/overflow.
-- Restarted the app to load the finale. User reauthorized Twitch; server confirms Chat subscribed on woadi_. Live finale remains preparing, with zero approvals and doors revealed, awaiting user curator review. Demo flow is separate and has ended naturally.
-- Live !door voting and actual OBS bar-scene verification remain pending. Full runbook: FINALE_RUNBOOK.md. Preview: outputs/last-call-bar.jpg. AI discovery, remote moderation, companion and further branching remain deferred.
+- Restarted the app to load the finale. User reauthorized Twitch; server confirms Chat subscribed on woadi_. Live approvals, trivia-to-tab, !door vote, playback and natural ending were subsequently verified October 30 (see above). Demo flow is separate.
+- Actual OBS bar-scene verification remains pending. Full runbook: FINALE_RUNBOOK.md. Preview: outputs/last-call-bar.jpg. AI discovery, remote moderation, companion and further branching remain deferred.
 
 ## October 29 — compact overlay and Stop Trivia
 - Added Stop Trivia to the existing state machine and dashboard. It preserves prior tabs/community progress, cancels an unrevealed round without awarding it, clears pending answers, hides its question, and rejects further play until reset. Pause/resume behavior is unchanged.

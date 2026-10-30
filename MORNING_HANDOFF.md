@@ -1,6 +1,6 @@
 # Last Call — morning handoff
 
-Latest update October 29: the P0 three-door demo is implemented. Read FINALE_RUNBOOK.md for the current flow; the original plan below is historical. 22 tests pass. The original silent segments, local approvals, staged reveals, tab vote, virtual bar, playback controls and natural end passed automated/browser rehearsal. Live Twitch is reconnected. Next required verification: user approves live segments, earns a trivia tab, casts a live !door ballot, and checks the bar scene in OBS. AI/moderator/companion work stays deferred.
+Latest update October 30: the P0 three-door flow is verified with real Twitch chat. jaydubs1980 earned one trivia tab, spent it on door two, and the selected approved original segment played in live /bar and ended naturally with its media source unloaded. Community progress stayed at one; viewer balance is zero. Twitch remains subscribed. The implementation checkpoint has 22 passing automated tests. Next: confirm /bar in actual OBS at 1920 × 1080, rehearse the full short show, and prepare demo capture/submission. Read FINALE_RUNBOOK.md; the original plan below is historical. AI/moderator/companion work stays deferred.
 
 Prepared October 25, 2026. Resume development on October 26; no overnight implementation or scheduled wakeup was requested.
 
