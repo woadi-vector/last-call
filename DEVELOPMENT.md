@@ -1,5 +1,10 @@
 # Last Call development tracker
 
+## October 30 — rehearsal accepted; capture next
+- User reports the rehearsal was good. Live Twitch flow and both OBS scenes are already confirmed; preserve the current feature scope for capture.
+- Checked the official Devpost rules for video, repository, description, main-build session ID and deadline requirements. SUBMISSION_CHECKLIST.md records sources and remaining delivery work; proposed final video target is 2:30.
+- No feature code, secrets or configuration changed. No recording, uploads, external repository publication or submission performed.
+
 ## October 30 — OBS bar accepted
 - After setting up the separate Last Call OBS scene (/bar at 1920 × 1080), user confirmed: "its there and correct." OBS bar setup/appearance is accepted based on user review, alongside the earlier trivia-overlay acceptance.
 - Next: one uninterrupted short-show rehearsal across the two OBS scenes, then user-authorized demo capture. DEMO_REHEARSAL.md provides the sequence and accurate implementation claims. No new features or recording/streaming were started for this confirmation.

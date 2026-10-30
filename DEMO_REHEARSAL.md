@@ -18,7 +18,7 @@
 6. Close voting and open the winning door. Let the original silent segment play; briefly demonstrate pause/resume if desired. The segment ends the show naturally after 18 seconds of playback.
 7. Finish on the end screen. Explain that the curator approves playback, and the streamer can pause, skip, stop, remove a segment or end the show.
 
-Aim for a concise 2–3 minute presentation. This is a proposed rehearsal length, not a verified submission video limit.
+Aim for 2 minutes 30 seconds. The [official rules](https://twitchcon-codex.devpost.com/rules), checked October 30, call for a video below three minutes with footage of real Twitch functionality and building with Codex. The user reports the rehearsal went well. See SUBMISSION_CHECKLIST.md for capture and delivery.
 
 ## What to say accurately
 
