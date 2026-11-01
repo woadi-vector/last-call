@@ -1,5 +1,9 @@
 # Last Call development tracker
 
+## November 1 — timed demo operator script
+- Added DEMO_SCRIPT.md with exact current control labels, private setup, a roughly 2:40 spoken script, live Twitch command cues, isolated rehearsal steps and recovery guidance. It distinguishes Codex/Studio capture from private controls and curator preparation, and does not claim unverified live AI generation.
+- Checked the sequence against dashboard/finale controls and the original fallback answer key. No app code, configuration or secrets changed; no recording or publishing started.
+
 ## October 30 — Studio and rehearsal polish
 - Added a five-question Show Pack Studio with editable source notes, evidence, choices, explanations and difficulty; question inclusion, isolated local draft save/load, original fallback, and a fresh approval gate when applying a pack. Pack replacement is blocked once trivia or staged door reveals have begun.
 - Optional server-side OpenAI Responses drafting uses structured output, store:false, bounded input and a timeout. Generated content is validated against supplied notes; no automatic fact verification is claimed. Fixed errors preserve the previous draft and keep upstream responses/credentials out of the UI. User chose to configure AI later; no actual OpenAI request was made or verified.

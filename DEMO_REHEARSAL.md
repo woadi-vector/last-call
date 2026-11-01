@@ -1,5 +1,7 @@
 # Last Call — short demo rehearsal
 
+For the timed click-by-click recording script, spoken lines, preparation and missed-cue recovery, use DEMO_SCRIPT.md. Target about 2:40; rehearse before recording.
+
 ## Before capture
 
 - Keep the server running; reconnect Twitch if it restarted. Do not display .env, tokens, private browser tabs or terminal chat logs.
