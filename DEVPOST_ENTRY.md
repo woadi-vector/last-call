@@ -23,9 +23,9 @@ Turn Twitch chat into part of the show: play trivia, earn tabs, and choose a mys
 ## Project story
 ## Inspiration
 
-I wanted streaming to feel like hosting a night with the regulars again. My experience with Twitch bartending tutorials, themed trivia, tournaments, and spontaneous rabbit holes showed me that the memorable moments happen when chat helps shape the show.
+Saturday nights at 8 PM used to mean Twitch trivia with the regulars—usually around 30–40 viewers. I wanted streaming to feel like hosting that night again. My experience with bartending tutorials, themed trivia, tournaments, and spontaneous rabbit holes showed me that the memorable moments happen when chat helps shape the show.
 
-Last Call turns that idea into a repeatable format: give viewers a small game while the streamer plays, then bring everyone together for a mystery finale.
+Last Call turns that idea into a repeatable format: give viewers a small game to earn a say in the direction of the stream and interact with each other, while the streamer plays, then brings everyone together for a mystery finale.
 
 ## What it does
 
@@ -37,11 +37,11 @@ The Show Pack Studio lets the streamer edit questions, review source notes, excl
 
 ## How I built it with Codex
 
-I built the project in this Codex conversation, starting from a small Node.js Twitch starter. Codex helped inspect the starter, implement and debug gameplay, build the dashboard and OBS views, add the Studio, write automated tests, and prepare rehearsal runbooks. I directed the product, reviewed the experience, and tested it with my Twitch channel and a second viewer account.
+I built the project in this Codex conversation, starting from a small Node.js Twitch starter. Codex helped inspect the starter, implement and debug gameplay, build the dashboard and OBS views, add the Studio, write 31 automated tests, and prepare rehearsal runbooks. I directed the product, reviewed the experience, and tested it with my Twitch channel and a second viewer account.
 
 The app uses native Node.js, JavaScript, HTML, and CSS with no third-party npm dependencies. Twitch OAuth connects the broadcaster; EventSub WebSocket delivers chat, and the Twitch API sends bot replies. Trivia and finale rules live in separate game engines so the show logic can evolve independently of Twitch messaging. OBS Browser Sources display the shared state.
 
-The optional AI drafting path uses the OpenAI Responses API with structured output and supplied reference notes. It never auto-approves or launches a question. The manual Studio works today; a real AI generation remains unverified pending local API-key configuration.
+Codex is the AI collaborator behind the build; the manual Show Pack Studio ships today. An optional drafting integration uses the OpenAI Responses API with structured output and supplied reference notes. It is gated behind local API-key configuration and still awaits a real generation check. It never auto-approves or launches content.
 
 ## Challenges I ran into
 
@@ -51,7 +51,9 @@ The finale also needed a real approval boundary: hiding a destination visually w
 
 ## Accomplishments I'm proud of
 
-We verified Twitch OAuth, bot replies, real chat answers, tab scoring, a door ballot using an earned tab, approved playback, and the natural end of the finale. The project has 31 passing automated tests, and I checked both OBS scenes and rehearsed the complete experience.
+In our verified live Twitch rehearsal on woadi_, jaydubs1980 earned one tab and spent it on door two: one accepted ballot, zero remaining viewer tabs, and one community tab still earned. The approved 18-second segment played and ended naturally. I also checked both OBS scenes.
+
+For reproducible evidence, a separate local HTTP rehearsal used one synthetic viewer: 10 answer submissions produced one accepted answer; 10 door-ballot submissions produced one accepted ballot. Cancelling the next unrevealed question preserved the earned tab. The segment ended after its real-time 18-second interval, and further media access returned HTTP 403. This is an isolated correctness check, not an audience-load or Twitch-latency benchmark. [Run it and inspect the recorded results](https://github.com/woadi-vector/last-call/blob/master/VERIFICATION.md).
 
 I'm especially proud that it feels like one show: the forest-green and gold bar, quiet rewards, mystery clues, and community choice all serve the same atmosphere.
 
@@ -90,4 +92,3 @@ A separate rehearsal room offers fake viewers and isolated scores. This prototyp
 # Main build session
 
 01a1751b-7eb3-7703-9da9-c5dd4eb0d4e1
-

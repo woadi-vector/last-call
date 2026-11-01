@@ -1,0 +1,41 @@
+{
+  "kind": "isolated local HTTP rehearsal with one synthetic viewer",
+  "scope": "No Twitch delivery, browser video decoding, audience load, or latency benchmark is claimed.",
+  "node": "v24.22.1",
+  "syntheticViewers": 1,
+  "questionsOpened": 2,
+  "questionsScored": 1,
+  "questionsCancelled": 1,
+  "events": [
+    {
+      "step": "revealed correct answer",
+      "submissions": 10,
+      "accepted": 1,
+      "rejected": 9,
+      "viewerTabs": 1,
+      "communityEarned": 1
+    },
+    {
+      "step": "cancelled second question before reveal",
+      "viewerTabs": 1,
+      "communityEarned": 1,
+      "pendingAnswers": 0
+    },
+    {
+      "step": "voted for door two",
+      "submissions": 10,
+      "accepted": 1,
+      "rejected": 9,
+      "viewerTabs": 0,
+      "communityEarned": 1,
+      "ballots": 1
+    },
+    {
+      "step": "natural end after real-time segment interval",
+      "configuredSegmentSeconds": 18,
+      "phase": "ended",
+      "postEndMediaStatus": 403,
+      "liveGameUnchanged": true
+    }
+  ]
+}

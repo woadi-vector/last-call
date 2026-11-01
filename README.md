@@ -6,6 +6,8 @@ The app includes a Show Pack Studio, streamer approval, timed rounds, individual
 
 The current product scope is in `BUILD_BRIEF.md`. Start the next development session with `MORNING_HANDOFF.md`, which records verified P0 work, remaining gaps, and the proposed three-door finale. Remote moderation and full AI discovery are deferred.
 
+For concrete live results and a reproducible isolated rehearsal, see [VERIFICATION.md](VERIFICATION.md). The local HTTP check runs with `node scripts/rehearse-evidence.mjs`, without credentials or a running app, and keeps synthetic results separate from real Twitch evidence.
+
 ## Requirements
 
 - Node.js **22 or newer** (Node 24 recommended). No npm dependency install required.

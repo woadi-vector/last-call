@@ -1,5 +1,10 @@
 # Last Call development tracker
 
+## November 1 — evidence-focused submission polish
+- User requested applicable changes from a supplied hackathon review. Preserved the existing show implementation and targeted the write-up: historical Saturday 8 PM trivia and approximate 30–40 viewers supplied by the creator, Codex's role foregrounded, and specific verified live tab/ballot counts.
+- Added a standalone credential-free rehearsal script and VERIFICATION.md. Ran it against its own ephemeral local HTTP server: one synthetic viewer, 10 answer attempts with 1 accepted, next question cancelled with the earned tab retained, 10 ballot attempts with 1 accepted, viewer balance 0/community total 1, and natural ending after the real 18-second interval with HTTP 403 afterward. Separate live game unchanged. Raw record: evidence/rehearsal-local.json. This is correctness evidence, not a Twitch latency or crowd benchmark.
+- Refreshed Devpost and independently confirmed SUBMITTED, 5/5 steps complete before the edits. The creator's existing edits to the story were preserved. No gallery comparison, new AI request, secret access or application feature change was needed.
+
 ## November 1 — submission reported complete
 - User confirmed the Devpost entry was submitted. Submission status is based on the user's confirmation; no independent status check was performed for this update.
 - Next follow-up: review the project gallery when entries are published. No scheduled monitoring or further feature work was requested.
