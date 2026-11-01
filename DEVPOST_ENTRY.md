@@ -1,6 +1,6 @@
 # Last Call — Devpost entry copy
 
-Updated November 1, 2026. Overview and project details saved to the Devpost draft. Final submission has not been performed.
+Updated November 1, 2026. The user confirmed the Devpost entry was submitted after the preparation recorded below.
 
 ## Elevator pitch
 
@@ -18,7 +18,7 @@ Turn Twitch chat into part of the show: play trivia, earn tabs, and choose a mys
 - Public source repository: https://github.com/woadi-vector/last-call
 - Repository URL is saved in both the judge-facing field and public project links.
 - Additional info is saved. Devpost shows 4/5 steps complete.
-- User must review the entry, final terms and submission. No final submission has been performed.
+- The user subsequently confirmed final submission. Gallery publication is pending review.
 
 ## Project story
 ## Inspiration

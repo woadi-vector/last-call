@@ -1,5 +1,7 @@
 # Last Call — capture and submission
 
+November 1 final update: the user confirmed submission. The earlier draft-status notes below describe preparation before that confirmation. Next: check the project gallery once entries are published.
+
 Verified against the [official hackathon rules](https://twitchcon-codex.devpost.com/rules) on October 30, 2026.
 
 November 1 status: the user supplied the YouTube video link. Pitch, story, thumbnail, gallery, repository URL, main Codex session ID and Additional info are saved to Devpost. Public source: https://github.com/woadi-vector/last-call. Devpost shows 4/5 steps complete; the final terms and Submit project action remain for user review. This is still a draft, not a completed submission.

@@ -1,5 +1,9 @@
 # Last Call development tracker
 
+## November 1 — submission reported complete
+- User confirmed the Devpost entry was submitted. Submission status is based on the user's confirmation; no independent status check was performed for this update.
+- Next follow-up: review the project gallery when entries are published. No scheduled monitoring or further feature work was requested.
+
 ## November 1 — repository and Devpost required fields complete
 - User requested repository creation. Created public https://github.com/woadi-vector/last-call and pushed the existing local commit history through GitHub CLI; the connected GitHub tools do not provide repository creation.
 - Before publication, checked all 16 existing commits for forbidden local-file paths and common credential patterns, and checked example credentials for non-placeholder values. No findings. No .env file read or modified. All 31 tests and source syntax checks pass.
