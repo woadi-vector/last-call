@@ -1,5 +1,10 @@
 # Last Call development tracker
 
+## November 1 — Devpost draft prepared
+- At the user's request, saved the elevator pitch and project story to Last Call's existing Devpost entry, preserving its YouTube link. Added actual technology tags and three existing app screenshots. Created and uploaded original forest-green/gold thumbnail art using the built-in image generator.
+- Preview confirmed the saved story and four media slides (video plus three app images). Technical-requirement and community-use answers plus main-build session ID are filled in Additional info but await required repository URL and personal survey responses before saving. Asked the user for those values; no repository remote is configured locally.
+- Local copy: DEVPOST_ENTRY.md; delivery files and proof screenshots are in outputs/. Claims distinguish the verified Twitch/manual Studio from unverified real AI drafting and future features. No terms accepted, final submission, repository publication, or secrets exposed.
+
 ## November 1 — timed demo operator script
 - Added DEMO_SCRIPT.md with exact current control labels, private setup, a roughly 2:40 spoken script, live Twitch command cues, isolated rehearsal steps and recovery guidance. It distinguishes Codex/Studio capture from private controls and curator preparation, and does not claim unverified live AI generation.
 - Checked the sequence against dashboard/finale controls and the original fallback answer key. No app code, configuration or secrets changed; no recording or publishing started.
