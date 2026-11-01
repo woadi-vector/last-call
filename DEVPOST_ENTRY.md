@@ -17,7 +17,7 @@ Turn Twitch chat into part of the show: play trivia, earn tabs, and choose a mys
 
 - Public source repository: https://github.com/woadi-vector/last-call
 - Repository URL is saved in both the judge-facing field and public project links.
-- Additional info is saved. Devpost shows 4/5 steps complete.
+- Additional info is saved. Refreshed Devpost confirms SUBMITTED, 5/5 steps complete.
 - The user subsequently confirmed final submission. Gallery publication is pending review.
 
 ## Project story
