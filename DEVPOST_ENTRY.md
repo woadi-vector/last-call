@@ -13,12 +13,12 @@ Turn Twitch chat into part of the show: play trivia, earn tabs, and choose a mys
 - Existing YouTube URL preserved: https://youtu.be/dAFXbf-RJAg
 - Built with tags: node.js, javascript, html5, css3, twitch.
 
-## Pending user information
+## Submission readiness
 
-- Repository URL (no remote configured in the local project).
-- Learning and future Codex-use survey answers.
-- Additional-info fields are filled in the browser but need the required fields completed before saving.
-- User must review final terms and submission.
+- Public source repository: https://github.com/woadi-vector/last-call
+- Repository URL is saved in both the judge-facing field and public project links.
+- Additional info is saved. Devpost shows 4/5 steps complete.
+- User must review the entry, final terms and submission. No final submission has been performed.
 
 ## Project story
 ## Inspiration

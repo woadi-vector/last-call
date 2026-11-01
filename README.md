@@ -15,8 +15,8 @@ The current product scope is in `BUILD_BRIEF.md`. Start the next development ses
 
 ## Setup on your streaming PC
 
-1. Extract the starter project folder.
-2. Open a terminal in `last-call`.
+1. Clone https://github.com/woadi-vector/last-call or download and extract its source.
+2. Open a terminal in the downloaded `last-call` folder.
 3. Copy `.env.example` to `.env` (Windows PowerShell: `Copy-Item .env.example .env`).
 4. Open `.env` in a local editor and paste the **Client Secret directly from your password manager** into `TWITCH_CLIENT_SECRET=`. Do **not** share it in chat. Keep `TWITCH_CLIENT_ID` as supplied.
 5. Verify your Twitch app OAuth Redirect URL is exactly `http://localhost:3000/auth/callback`.

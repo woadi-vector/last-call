@@ -1,5 +1,10 @@
 # Last Call development tracker
 
+## November 1 — repository and Devpost required fields complete
+- User requested repository creation. Created public https://github.com/woadi-vector/last-call and pushed the existing local commit history through GitHub CLI; the connected GitHub tools do not provide repository creation.
+- Before publication, checked all 16 existing commits for forbidden local-file paths and common credential patterns, and checked example credentials for non-placeholder values. No findings. No .env file read or modified. All 31 tests and source syntax checks pass.
+- Saved the repository URL in Devpost Additional info and public project links, completed the user-provided survey responses and explicitly confirmed eligibility statements. Devpost now shows 4/5 steps complete. Final terms remain unchecked and the entry remains a draft for user review/submission.
+
 ## November 1 — Devpost draft prepared
 - At the user's request, saved the elevator pitch and project story to Last Call's existing Devpost entry, preserving its YouTube link. Added actual technology tags and three existing app screenshots. Created and uploaded original forest-green/gold thumbnail art using the built-in image generator.
 - Preview confirmed the saved story and four media slides (video plus three app images). Technical-requirement and community-use answers plus main-build session ID are filled in Additional info but await required repository URL and personal survey responses before saving. Asked the user for those values; no repository remote is configured locally.

@@ -2,6 +2,8 @@
 
 Verified against the [official hackathon rules](https://twitchcon-codex.devpost.com/rules) on October 30, 2026.
 
+November 1 status: the user supplied the YouTube video link. Pitch, story, thumbnail, gallery, repository URL, main Codex session ID and Additional info are saved to Devpost. Public source: https://github.com/woadi-vector/last-call. Devpost shows 4/5 steps complete; the final terms and Submit project action remain for user review. This is still a draft, not a completed submission.
+
 ## Required delivery
 
 - Deadline: November 2, 2026, 2 PM Pacific / 4 PM America/Chicago.
@@ -23,8 +25,7 @@ Verified against the [official hackathon rules](https://twitchcon-codex.devpost.
 ## Remaining work
 
 - Record and review the final video; check timing, audio, readability and that it contains no credentials.
-- Prepare the repository for judging and verify access without exposing .env or tokens.
-- Draft the project description and record the verified session ID.
+- Repository and written entry are prepared; check the final public preview and video before submission.
 - Obtain the user's approval of the finished materials before external publishing/submission steps.
 
 For show operation use DEMO_REHEARSAL.md and FINALE_RUNBOOK.md.
